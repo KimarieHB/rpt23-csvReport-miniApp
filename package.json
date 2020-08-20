@@ -1,0 +1,23 @@
+{
+  "name": "rpt23-csvreport-miniapp",
+  "version": "1.0.0",
+  "description": "HR Mini-App Week 13",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KimarieHB/rpt23-csvReport-miniApp.git"
+  },
+  "author": "KHB",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KimarieHB/rpt23-csvReport-miniApp/issues"
+  },
+  "homepage": "https://github.com/KimarieHB/rpt23-csvReport-miniApp#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
