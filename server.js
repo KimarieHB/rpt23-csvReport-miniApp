@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const app = express();
 const logger = require('morgan');
 const parser = require('body-parser');
@@ -21,9 +20,12 @@ app.get('/test', (req, res) => {
 
 app.post('/json_input', (req, res) => {
   let data = JSON.parse(req.body['json-input']);
-  toCSVFormatter(data);
-  console.log(Object.values(data));
-  console.log(req.body['json-input']);
+  let csvReport = '';
+  let row = Object.keys(data);
+  row.pop();
+  csvReport += row.toString();
+  csvReport += toCSVFormatter(data);
+  console.log(csvReport);
   
   
   
@@ -33,7 +35,14 @@ app.post('/json_input', (req, res) => {
 })
 
 const toCSVFormatter = (object) => {
-  let header = Object.keys(object).toString();
-  console.log(header);
-  
+  let row = Object.values(object);
+  row.pop();
+  let csvReport = '\n' + row.toString();
+
+  if (object.children.length > 0) {
+    for (let person of object.children) {
+      csvReport += toCSVFormatter(person);
+    }
+  }
+  return csvReport;
 }
