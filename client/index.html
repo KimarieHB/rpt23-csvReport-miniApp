@@ -4,13 +4,16 @@
     <title>JSON to CSV</title>
   </head>
   <body>
-    <div id='form'>
-      <label for='json-input'>Input JSON Text Here:</label>
-      <br>
-      <textarea type='text' id='json-input' name='json-input'>
-      </textarea>
-      <br>
-      <input type='submit' id='button' value='Submit' onClick='submit()'>
-    </div>
+    <form method='POST' action='/json_input'>
+      <div>
+        <label for='json-input'>Input JSON Text Here:</label>
+        <br>
+        <textarea type='text' rows='8' cols='50' id='json-input' name='json-input'></textarea>
+      </div>
+      <div>
+        <input type='submit' id='button' value='Submit'>
+      </div>
+    </form>
   </body>
+  <script src='app.js'></script>
 </html>
