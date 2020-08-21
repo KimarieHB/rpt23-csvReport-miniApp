@@ -13,25 +13,22 @@ app.listen(port, () => {
   console.log(`Listening at localhost ${port}`);
 })
 
-// Test
-app.get('/test', (req, res) => {
+app.get('/json_input', (req, res) => {
   res.send('Server is serving!');
 })
 
 app.post('/json_input', (req, res) => {
   let data = JSON.parse(req.body['json-input']);
+
   let csvReport = '';
   let row = Object.keys(data);
   row.pop();
   csvReport += row.toString();
+  
   csvReport += toCSVFormatter(data);
   console.log(csvReport);
   
-  
-  
-  // res.send back the newly formatted info
-  // does this go to / or a new endpoint?
-  res.send('Recieved data');
+  res.send(csvReport);
 })
 
 const toCSVFormatter = (object) => {
