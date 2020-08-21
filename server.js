@@ -20,7 +20,21 @@ app.get('/test', (req, res) => {
 })
 
 app.post('/json_input', (req, res) => {
-  console.log(req.body);
-  console.log(req.headers);
+  let csvObj = {
+    tableHeaders: null,
+    tableRows: []
+  };
+  // data is string, fool!
+  let data = req.body['json-input'];
+  let newData = JSON.stringify(data);
+  newData = parser.json(newData);
+  console.log(newData);
+  
+  console.log(req.body['json-input']);
+  // res.send back the newly formatted info
+  // page shows csv table and input form (ready for new input)
+  // use res.write for this?
+
+  // does this go to / or a new endpoint?
   res.send('Recieved data');
 })
