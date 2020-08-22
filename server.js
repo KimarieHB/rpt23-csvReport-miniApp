@@ -5,7 +5,7 @@ const parser = require('body-parser');
 const multer = require('multer')
 const upload = multer({dest: 'upload/'});
 const fs = require('fs');
-const port = process.env.PORT || 3000;;
+const port = process.env.PORT || 3000;
 
 app.use(logger('dev'));
 app.use(parser.urlencoded( {extended: false} ));
@@ -18,6 +18,19 @@ app.listen(port, () => {
 
 app.get('/test', (req, res) => {
   res.send('Server is serving!');
+})
+
+//Post for AJAX
+app.post('/json_input', (req, res) => {
+  let data = JSON.parse(req.body.data);
+
+  let csvReport = '';
+  let row = Object.keys(data);
+  row.pop();
+  csvReport += row.toString();
+  csvReport += toCSVFormatter(data);
+
+  res.send(csvReport);
 })
 /*
 // Post for JSON file picker input
