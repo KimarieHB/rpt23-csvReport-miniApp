@@ -3,7 +3,7 @@ const app = express();
 const logger = require('morgan');
 const parser = require('body-parser');
 const multer = require('multer')
-const upload = multer( {dest: '/json_file'} );
+const upload = multer({dest: 'upload/'});
 const fs = require('fs');
 const port = process.env.PORT || 3000;;
 
@@ -21,15 +21,16 @@ app.get('/test', (req, res) => {
 })
 
 // Post for JSON file picker input
-app.post('/json_file', upload.single('json-file') (req, res) => {
-  console.log(req.body);
-  fs.readFile('/json_input', (err, data) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(data);
-    }
-  })
+app.post('/json_file', upload.single('json-file'), (req, res) => {
+  console.log(req.file);
+  // let filePath = `upload/${req.file.filename}`;
+  // fs.readFile(filePath, (err, data) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     console.log(data);
+  //   }
+  // })
   
   res.send('Figuring it out!');
 })
