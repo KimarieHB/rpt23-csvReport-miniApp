@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const logger = require('morgan');
 const parser = require('body-parser');
+const multer = require('multer')
+const upload = multer( {dest: '/json_file'} );
+const fs = require('fs');
 const port = process.env.PORT || 3000;;
 
 app.use(logger('dev'));
@@ -13,10 +16,25 @@ app.listen(port, () => {
   console.log(`Listening at localhost ${port}`);
 })
 
-app.get('/json_input', (req, res) => {
+app.get('/test', (req, res) => {
   res.send('Server is serving!');
 })
 
+// Post for JSON file picker input
+app.post('/json_file', upload.single('json-file') (req, res) => {
+  console.log(req.body);
+  fs.readFile('/json_input', (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(data);
+    }
+  })
+  
+  res.send('Figuring it out!');
+})
+
+// Post for textarea json file input
 app.post('/json_input', (req, res) => {
   let data = JSON.parse(req.body['json-input']);
 
@@ -26,9 +44,7 @@ app.post('/json_input', (req, res) => {
   csvReport += row.toString();
 
   csvReport += toCSVFormatter(data);
-
   console.log(csvReport);
-  
   res.send(HTMLFormatter(csvReport));
 })
 

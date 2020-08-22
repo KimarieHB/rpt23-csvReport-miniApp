@@ -4,10 +4,11 @@
     <title>JSON to CSV</title>
   </head>
   <body>
-    <form method='POST' action='/json_input'>
-        <label for='json-input'>Input JSON Text Here:</label>
+    <form method='POST' action='/json_file' enctype='multipart/form-data'>
+        <label for='json-file'>Upload JSON File Here:</label>
         <br>
-        <textarea type='text' rows='8' cols='50' id='json-input' name='json-input'></textarea>
+        <!-- <textarea type='text' rows='8' cols='50' id='json-input' name='json-input'></textarea> -->
+        <input type='file' id='file-picker' name='json-file' multiple>
         <br>
         <input type='submit' id='button' value='Submit'>
     </form>
