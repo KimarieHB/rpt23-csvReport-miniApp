@@ -19,7 +19,7 @@ app.listen(port, () => {
 app.get('/test', (req, res) => {
   res.send('Server is serving!');
 })
-
+/*
 // Post for JSON file picker input
 app.post('/json_file', upload.single('json-file'), (req, res) => {
   let csvReport = '';
@@ -39,7 +39,7 @@ app.post('/json_file', upload.single('json-file'), (req, res) => {
     }
   })
 })
-
+*/
 // Post for textarea json file input
 app.post('/json_input', (req, res) => {
   let data = JSON.parse(req.body['json-input']);
