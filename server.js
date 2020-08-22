@@ -22,17 +22,22 @@ app.get('/test', (req, res) => {
 
 // Post for JSON file picker input
 app.post('/json_file', upload.single('json-file'), (req, res) => {
-  console.log(req.file);
-  // let filePath = `upload/${req.file.filename}`;
-  // fs.readFile(filePath, (err, data) => {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     console.log(data);
-  //   }
-  // })
-  
-  res.send('Figuring it out!');
+  let csvReport = '';
+  let filePath = req.file.path;
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      let parsedData = JSON.parse(data);
+      
+      let row = Object.keys(parsedData);
+      row.pop();
+      csvReport += row.toString();
+
+      csvReport += toCSVFormatter(parsedData);
+      res.send(filePickerFormatter(csvReport));
+    }
+  })
 })
 
 // Post for textarea json file input
@@ -85,6 +90,33 @@ const HTMLFormatter = (csvReport) => {
         </body>
         <script src='app.js'></script>
       </html>`;
+
+  return form;
+}
+
+const filePickerFormatter = (csvReport) => {
+  let form = 
+    `<!DOCTYPE html>
+    <html>
+      <head>
+        <title>JSON to CSV</title>
+      </head>
+      <body>
+        <form method='POST' action='/json_file' enctype='multipart/form-data'>
+            <label for='json-file'>Upload JSON File Here:</label>
+            <br>
+            <input type='file' id='file-picker' name='json-file'>
+            <br>
+            <input type='submit' id='button' value='Submit'>
+        </form>
+        <br>
+          <div id='csv-report'>
+            <h2>CSV Report:</h2>
+            <p>${csvReport}</p>
+          </div>
+        </body>
+      <script src='app.js'></script>
+    </html>`;
 
   return form;
 }
