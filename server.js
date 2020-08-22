@@ -39,7 +39,7 @@ app.post('/json_file', upload.single('json-file'), (req, res) => {
     }
   })
 })
-*/
+
 // Post for textarea json file input
 app.post('/json_input', (req, res) => {
   let data = JSON.parse(req.body['json-input']);
@@ -53,7 +53,7 @@ app.post('/json_input', (req, res) => {
   console.log(csvReport);
   res.send(HTMLFormatter(csvReport));
 })
-
+*/
 const toCSVFormatter = (object) => {
   let row = Object.values(object);
   row.pop();

@@ -2,6 +2,11 @@
 <html>
   <head>
     <title>JSON to CSV</title>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
+      crossorigin="anonymous">
+    </script>
   </head>
   <body>
     <form>
@@ -12,7 +17,10 @@
         <br>
         <input type='submit' id='button' value='Submit'>
     </form>
-    <div id='csv-report'></div>
+    <div>
+      <h3>CSV Report:</h3>
+      <div id='csv-report'></div>
+    </div>
   </body>
   <script src='app.js'></script>
   <script src='../server.js'></script>
