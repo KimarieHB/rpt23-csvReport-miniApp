@@ -24,17 +24,18 @@ app.post('/json_input', (req, res) => {
   let row = Object.keys(data);
   row.pop();
   csvReport += row.toString();
-  
+
   csvReport += toCSVFormatter(data);
+
   console.log(csvReport);
   
-  res.send(csvReport);
+  res.send(HTMLFormatter(csvReport));
 })
 
 const toCSVFormatter = (object) => {
   let row = Object.values(object);
   row.pop();
-  let csvReport = '\n' + row.toString();
+  let csvReport = '\n <br>' + row.toString();
 
   if (object.children.length > 0) {
     for (let person of object.children) {
@@ -42,4 +43,31 @@ const toCSVFormatter = (object) => {
     }
   }
   return csvReport;
+}
+
+const HTMLFormatter = (csvReport) => {
+  let form = 
+    `<!DOCTYPE html>
+      <html>
+        <head>
+          <title>JSON to CSV</title>
+        </head>
+        <body>
+          <form method='POST' action='/json_input'>
+              <label for='json-input'>Input JSON Text Here:</label>
+              <br>
+              <textarea type='text' rows='8' cols='50' id='json-input' name='json-input'></textarea>
+              <br>
+              <input type='submit' id='button' value='Submit'>
+          </form>
+          <br>
+          <div id='csv-report'>
+            <h2>CSV Report:</h2>
+            <p>${csvReport}</p>
+          </div>
+        </body>
+        <script src='app.js'></script>
+      </html>`;
+
+  return form;
 }
