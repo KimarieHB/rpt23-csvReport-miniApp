@@ -8,16 +8,12 @@ $('#button').click((event) => {
 })
 
 const submitJson = (fileData) => {
-  $.post('/json_input', { data: fileData, 
-    error: (err) => {
-      $('#csv-report').html(`<p>${err}</p>`);
-      console.log(err);
-    },
-    success: (data) => {
-      $('#csv-report').html('<h3>CSV Report:</h3>');
-      $('#csv-report').append(`<p>${data}</p>`);
-    }   
-  });
+  $.post('/json_input', { data: fileData }, 
+  (data) => {
+    console.log('front:', data);
+    $('#csv-report').html('<h3>CSV Report:</h3>');
+    $('#csv-report').append(`<p>${data}</p>`);
+  }, 'text');
 }
 
 

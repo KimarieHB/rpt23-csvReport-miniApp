@@ -29,7 +29,7 @@ app.post('/json_input', (req, res) => {
   row.pop();
   csvReport += row.toString();
   csvReport += toCSVFormatter(data);
-
+  console.log('back:', csvReport);
   res.send(csvReport);
 })
 /*
