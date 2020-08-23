@@ -20,6 +20,25 @@ app.get('/test', (req, res) => {
   res.send('Server is serving!');
 })
 
+app.get('/csv_report', (req, res) => {
+  let filePath = './samples/sales_report.json';
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      let parsedData = JSON.parse(data);
+    
+      let csvReport = '';
+      let row = Object.keys(parsedData);
+      row.pop();
+      csvReport += row.toString();
+
+      csvReport += toCSVFormatter(parsedData);
+      res.send(csvReport);
+    }
+  })
+})
+
 //Post for AJAX
 app.post('/json_input', (req, res) => {
   let data = JSON.parse(req.body.data);
@@ -29,6 +48,7 @@ app.post('/json_input', (req, res) => {
   row.pop();
   csvReport += row.toString();
   csvReport += toCSVFormatter(data);
+
   console.log('back:', csvReport);
   res.send(csvReport);
 })
@@ -94,6 +114,8 @@ const HTMLFormatter = (csvReport) => {
               <textarea type='text' rows='8' cols='50' id='json-input' name='json-input'></textarea>
               <br>
               <input type='submit' id='button' value='Submit'>
+              <br>
+              <input type='button' id='download' value='Download CSV Report' style='margin:10px 0px;'>
           </form>
           <br>
           <div id='csv-report'>
